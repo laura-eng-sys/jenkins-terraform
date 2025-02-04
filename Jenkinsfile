@@ -9,14 +9,14 @@ pipeline {
         stage('Checkout SCM'){
             steps{
                 script{
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/yeshwanthlm/EKS-Terraform-Jenkins.git']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/laura-eng-sys/jenkins-terraform.git']])
                 }
             }
         }
         stage('Initializing Terraform'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('modules/s3-creation'){
                          sh 'terraform init'
                     }
                 }
@@ -25,7 +25,7 @@ pipeline {
         stage('Validating Terraform'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('modules/s3-creation'){
                          sh 'terraform validate'
                     }
                 }
@@ -34,17 +34,17 @@ pipeline {
         stage('Previewing the infrastructure'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('modules/s3-creation'){
                          sh 'terraform plan'
                     }
                     input(message: "Approve?", ok: "proceed")
                 }
             }
         }
-        stage('Create/Destroy an EKS cluster'){
+        stage('Create ec2'){
             steps{
                 script{
-                    dir('terraform'){
+                    dir('ec2-creation'){
                          sh 'terraform $action --auto-approve'
                     }
                 }
