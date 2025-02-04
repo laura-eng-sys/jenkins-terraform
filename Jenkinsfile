@@ -13,7 +13,7 @@ pipeline {
                 }
             }
         }
-        stage('Initializing Terraform'){
+        stage('Initializing s3'){
             steps{
                 script{
                     dir('modules/s3-creation'){
@@ -22,7 +22,7 @@ pipeline {
                 }
             }
         }
-        stage('Validating Terraform'){
+        stage('Validating s3'){
             steps{
                 script{
                     dir('modules/s3-creation'){
@@ -41,12 +41,31 @@ pipeline {
                 }
             }
         }
-        stage('Create ec2'){
+        stage('Create ec2 initialize terraform'){
             steps{
                 script{
                     dir('ec2-creation'){
-                         sh 'terraform $action --auto-approve'
+                         sh 'terraform init'
                     }
+                }
+            }
+        }
+        stage('Validating ec2'){
+            steps{
+                script{
+                    dir('ec2-creation'){
+                         sh 'terraform validate'
+                    }
+                }
+            }
+        }
+        stage('Previewing the infrastructure'){
+            steps{
+                script{
+                    dir('ec2-creation'){
+                         sh 'terraform plan'
+                    }
+                    input(message: "Approve?", ok: "proceed")
                 }
             }
         }
