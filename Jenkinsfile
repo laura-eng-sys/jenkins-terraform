@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage('Previewing the infrastructure'){
+        stage('Previewing the s3-infrastructure'){
             steps{
                 script{
                     dir('modules/s3-creation'){
@@ -59,7 +59,7 @@ pipeline {
                 }
             }
         }
-        stage('Previewing the infrastructure'){
+        stage('Previewing the ec2-infrastructure'){
             steps{
                 script{
                     dir('ec2-creation'){
