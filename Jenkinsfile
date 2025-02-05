@@ -49,6 +49,15 @@ pipeline {
                 }
             }
         }
+        stage('terraform destroy s3'){
+            steps{
+                script{
+                    dir('modules/s3-creation'){
+                         sh 'terraform destroy --auto-approve'
+                    }
+                }
+            }
+        }
         stage('Create ec2 initialize terraform'){
             steps{
                 script{
