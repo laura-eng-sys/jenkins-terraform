@@ -37,7 +37,6 @@ pipeline {
                     dir('modules/s3-creation'){
                          sh 'terraform plan'
                     }
-                    input(message: "Approve?", ok: "proceed")
                 }
             }
         }
