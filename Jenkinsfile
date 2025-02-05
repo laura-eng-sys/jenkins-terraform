@@ -31,7 +31,7 @@ pipeline {
                 }
             }
         }
-        stage('Previewing the s3-infrastructure'){
+        stage('terraform plan s3'){
             steps{
                 script{
                     dir('modules/s3-creation'){
