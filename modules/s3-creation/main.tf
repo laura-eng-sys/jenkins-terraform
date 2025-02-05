@@ -2,7 +2,6 @@
 
 provider "aws" {
   region  = var.region
-  profile = "terraform-user"
 }
 
 # Create a new S3 bucket
