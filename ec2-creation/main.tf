@@ -2,7 +2,7 @@
 
 provider "aws" {
   region  = var.region
-  profile = 'terraform-user'
+  profile = "terraform-user"
 }
 
 #create vpc
