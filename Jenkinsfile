@@ -41,6 +41,15 @@ pipeline {
                 }
             }
         }
+         stage('terraform apply s3'){
+            steps{
+                script{
+                    dir('modules/s3-creation'){
+                         sh 'terraform apply --auto-approve'
+                    }
+                }
+            }
+        }
         stage('Create ec2 initialize terraform'){
             steps{
                 script{
